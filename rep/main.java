@@ -64,3 +64,4 @@ public class Human {
 // In class Human exists constructor after that Strings are sorted and if it necesory made...
 //longer, because with out that ID is not rectangle
 //also I take hash code like ID number, because for every class hash number is unique like ID numbers.
+//P.S. I dont how it works on pc, because my java IDE works very bad and I am coding in online IDE
