@@ -6,7 +6,7 @@ public class Main {
         
         boolean isLoop = true;
         while (isLoop){
-
+            
         }
     }
 }
