@@ -1,43 +1,90 @@
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+
 public class Faculty {
     private String name;
     private String abbreviation;
-    private List<Student> students;
     private StudyField studyField;
-    Faculty(String name, String abbreviation, List<Student> students, StudyField studyField){
+    private List<Student> students;
+
+    public Faculty(String name, String abbreviation, StudyField studyField) {
         this.name = name;
         this.abbreviation = abbreviation;
-        this.students = students;
         this.studyField = studyField;
+        this.students = new ArrayList<>();
     }
-    //
-    // gets
-    //
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public String getAbbreviation(){
+
+    public String getAbbreviation() {
         return abbreviation;
     }
-    public List<Student> getStudents(){
-        return students;
-    }
-    public StudyField getStudyField(){
+
+    public StudyField getStudyField() {
         return studyField;
     }
-    //
-    // sets
-    //
-    public void setName(String name){
-        this.name = name;
+
+    public List<Student> getStudents() {
+        return students;
     }
-    public void setAbbreviation(String abbreviation){
-        this.abbreviation = abbreviation;
+
+    public void addStudent(Student student) {
+        students.add(student);
     }
-    public void setStudents(List<Student> students){
-        this.students = students;
+
+    @Override
+    public String toString() {
+        return "Faculty: \n" +
+                "name='" + name + '\'' +
+                ", abbreviation= '" + abbreviation + '\'' +
+                ", studyField= '" + studyField.getName() + '\'' +
+                ", students=" + students.size() + "\n";
     }
-    public void setStudyField(StudyField studyField){
-        this.studyField = studyField;
+
+    public void saveToFile(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(String.format("%s,%s,%s%n", name, abbreviation, studyField.getName()));
+        } catch (IOException e) {
+            System.err.print("Error saving faculty to file");
+        }
     }
+
+    public static List<Faculty> loadFromFile(String filePath, List<StudyField> studyFields) {
+        List<Faculty> faculties = new ArrayList<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String facultyName = parts[0].trim();
+                    String facultyAbbreviation = parts[1].trim();
+                    String studyFieldName = parts[2].trim();
+                    StudyField studyField = findStudyFieldByName(studyFields, studyFieldName);
+                    if (studyField != null) {
+                        Faculty faculty = new Faculty(facultyName, facultyAbbreviation, studyField);
+                        faculties.add(faculty);
+                    } else {
+                        System.err.println("Invalid study field found in faculty data");
+                    }
+                }
+            }
+        }
+        catch (IOException e) {
+            System.err.println("Error reading faculty data from file");
+        }
+        return faculties;
+    }
+
+    private static StudyField findStudyFieldByName(List<StudyField> studyFields, String name) {
+        for (StudyField studyField : studyFields) {
+            if(studyField.getName().equalsIgnoreCase(name)) {
+                return studyField;
+            }
+        }
+        return null;
+    }
+
 }

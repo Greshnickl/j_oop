@@ -1,0 +1,2 @@
+Faculty of Engineering,FOE,Software Engineering
+Faculty of Science,FOS,Chemistry

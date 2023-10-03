@@ -1,0 +1,4 @@
+John,Doe,johndoe@example.com,2023-09-28,1990-01-15,Mechanical Engineering
+Alice,Smith,alice.smith@example.com,2023-09-27,1995-05-20,Software Engineering
+Alexei,Semichin,alexei.semikin@gmail.com,2022-09-01,2004-03-01,Software Engineering
+Petr,Dimitrov,petrov.dimitr@gmail.com,2021-09-01,2023-01-08,Software Engineering

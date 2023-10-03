@@ -1,7 +1,16 @@
-public enum StudyField {
-    MECHANICAL_ENGINEERING,
-    SOFTWARE_ENGINEERING,
-    FOOD_TECHNOLOGY,
-    URBANISM_ARCHITECTURE,
-    VETERINARY_MEDICINE
+public class StudyField {
+    private String name;
+
+    public StudyField(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
